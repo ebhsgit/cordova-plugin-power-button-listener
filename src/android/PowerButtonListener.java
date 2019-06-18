@@ -8,13 +8,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.view.KeyEvent;
 
 public class PowerButtonListener extends CordovaPlugin {
 
@@ -51,8 +49,7 @@ public class PowerButtonListener extends CordovaPlugin {
             pluginResult.setKeepCallback(true);
             this.powerButtonCallbackContext.sendPluginResult(pluginResult);
             return true;
-        } 
-        else if (action.equals("stop")) {
+        } else if (action.equals("stop")) {
             this.removeBroadcastReceiver();
 
             // Erase the callbacks reference and stop the listening process
@@ -75,25 +72,25 @@ public class PowerButtonListener extends CordovaPlugin {
         this.broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-
-                JSONObject info = new JSONObject();
-                info.put("platform", new String("android"));
-                info.put("keyAction", action);
-
-                if (action.equals(Intent.ACTION_SCREEN_OFF) || action.equals(Intent.ACTION_SCREEN_ON)) {
-                    info.put("keyCode", KeyEvent.KEYCODE_POWER);
-                }
-                else {
-                    // Shouldn't get here given filter action 
-                    // Pass back to caller to allow understanding of what happened.
-                    info.put("keyCode", "unknown");
-                    Log.e(LOG_TAG, "Unexpected action for BroadcastReceiver: " + action);
-                }
-
                 try {
-                    this.sendButtonEvent(info, true);
-                } catch (JSONException ex) {
+                    String action = intent.getAction();
+
+                    JSONObject info = new JSONObject();
+                    info.put("platform", new String("android"));
+                    info.put("keyAction", action);
+
+                    if (action.equals(Intent.ACTION_SCREEN_OFF) || action.equals(Intent.ACTION_SCREEN_ON)) {
+                        info.put("keyCode", KeyEvent.KEYCODE_POWER);
+                    } else {
+                        // Shouldn't get here given filter action
+                        // Pass back to caller to allow understanding of what happened.
+                        info.put("keyCode", "unknown");
+                        Log.e(LOG_TAG, "Unexpected action for BroadcastReceiver: " + action);
+                    }
+
+                    sendButtonEvent(info, true);
+                } 
+                catch (JSONException ex) {
                     Log.e(LOG_TAG, ex.getMessage());
                 }
             }
