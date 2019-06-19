@@ -2,19 +2,19 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.eightbhs.power-button-listener" version="1.0.0">
     
-    <name>PowerButton</name>
+    <name>PowerButtonListener</name>
     <description>Cordova plugin which notifies when the user presses the power button on the device</description>
     <license>Apache 2.0</license> 	
  	<keywords>cordova,cordova-android,power-button</keywords>
 
-    <js-module src="www/powerButton.js" name="powerButton">
-        <clobbers target="navigator.powerButton" />
+    <js-module src="www/powerButtonListener.js" name="powerButtonListener">
+        <clobbers target="navigator.powerButtonListener" />
     </js-module>
 
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="PowerButton">
+            <feature name="PowerButtonListener">
                 <param name="android-package" value="com.eightbhs.PowerButtonListener"/>
             </feature>
         </config-file>

@@ -16,13 +16,13 @@ import android.view.KeyEvent;
 
 public class PowerButtonListener extends CordovaPlugin {
 
-    private static final String LOG_TAG = "PowerButtonLog";
-    private CallbackContext powerButtonCallbackContext;
+    private static final String LOG_TAG = "PowerButtonListener_Log";
+    private CallbackContext listenerCallbackContext;
 
     private BroadcastReceiver broadcastReceiver;
 
     public PowerButtonListener() {
-        powerButtonCallbackContext = null;
+        listenerCallbackContext = null;
         broadcastReceiver = null;
     }
 
@@ -30,31 +30,30 @@ public class PowerButtonListener extends CordovaPlugin {
 
         if (action.equals("start")) {
 
-            // Check if the plugin is listening the power button events
-            if (this.powerButtonCallbackContext != null) {
+            // Check if the plugin is already listening to the power button events
+            if (this.listenerCallbackContext != null) {
                 // Send error to new context
                 callbackContext.error("Power button listener already running");
                 return true;
             }
             // Get the reference to the callbacks and start the listening process
-            this.powerButtonCallbackContext = callbackContext;
+            this.listenerCallbackContext = callbackContext;
 
             if (this.broadcastReceiver == null) {
-                this.attachReceiver();
+                this.attachBroadcastReceiver();
             }
 
-            // Don't return any result now. Status is sent when power button event is
-            // intercepted by broadcast receiver
+            // Don't return any result now. Status is sent when power button event is intercepted by broadcast receiver
             PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
             pluginResult.setKeepCallback(true);
-            this.powerButtonCallbackContext.sendPluginResult(pluginResult);
+            this.listenerCallbackContext.sendPluginResult(pluginResult);
             return true;
         } else if (action.equals("stop")) {
             this.removeBroadcastReceiver();
 
             // Erase the callbacks reference and stop the listening process
             this.sendButtonEvent(new JSONObject(), false); // release status callback in Javascript side
-            this.powerButtonCallbackContext = null;
+            this.listenerCallbackContext = null;
             callbackContext.success();
             return true;
         }
@@ -62,7 +61,7 @@ public class PowerButtonListener extends CordovaPlugin {
         return false;
     }
 
-    private void attachReceiver() {
+    private void attachBroadcastReceiver() {
         // Use Screen on and off to infer power button.
         // This is also triggered when screen time out.
         IntentFilter intentFilter = new IntentFilter();
@@ -119,10 +118,10 @@ public class PowerButtonListener extends CordovaPlugin {
     }
 
     private void sendButtonEvent(JSONObject info, boolean keepCallback) {
-        if (this.powerButtonCallbackContext != null) {
+        if (this.listenerCallbackContext != null) {
             PluginResult result = new PluginResult(PluginResult.Status.OK, info);
             result.setKeepCallback(keepCallback);
-            this.powerButtonCallbackContext.sendPluginResult(result);
+            this.listenerCallbackContext.sendPluginResult(result);
         }
     }
 }

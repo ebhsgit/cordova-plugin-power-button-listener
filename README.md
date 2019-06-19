@@ -33,7 +33,7 @@ Applications have to use `window.addEventListener`to attach this event listener 
 
 ### Example
 ``` js
-	window.addEventListener("powerButtonListener", (info) => { this.onEvent(info); }, false);
+	window.addEventListener("powerbuttonlistener", (info) => { this.onEvent(info); }, false);
 	
 	function onEvent(info){
 		console.log("Action: " + info.keyAction);
