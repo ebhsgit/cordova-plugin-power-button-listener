@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="com.eightbhs.power-button-listener" version="1.0.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="8bhsolutions-cordova-plugin-power-button-listener" version="1.0.0">
     
     <name>PowerButtonListener</name>
     <description>Cordova plugin which notifies when the user presses the power button on the device</description>

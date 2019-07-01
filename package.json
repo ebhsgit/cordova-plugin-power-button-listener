@@ -1,5 +1,5 @@
 {
-  "name": "com.eightbhs.power-button-listener",
+  "name": "8bhsolutions-cordova-plugin-power-button-listener",
   "version": "1.0.0",
   "description": "Cordova plugin which notifies when the user presses the power button on the device",
   "repository": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/8bhsolutions/cordova-plugin-power-button-listener/blob/master/README.md",
   "cordova": {
-    "id": "com.eightbhs.power-button-listener",
+    "id": "8bhsolutions-cordova-plugin-power-button-listener",
     "platforms": [
       "android"
     ]
