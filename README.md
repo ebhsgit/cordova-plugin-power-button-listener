@@ -10,13 +10,13 @@ When the power button is inferred, the plugin fires an `window` event:
 ## Installation
 
 ``` bash
-cordova plugin add https://github.com/8bhsolutions/cordova-plugin-power-button-listener.git --nofetch
+cordova plugin add https://github.com/8bhsolutions/cordova-plugin-power-button-listener.git
 ```
 
 ## Remove
 
 ``` bash
-cordova plugin remove com.eightbhs.power-button-listener
+cordova plugin remove 8bhsolutions-cordova-plugin-power-button-listener
 ```
 
 ## Returned object
